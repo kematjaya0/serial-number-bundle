@@ -2,10 +2,15 @@
 
 namespace Kematjaya\SerialNumberBundle;
 
+use Symfony\Component\HttpKernel\Bundle\Bundle;
+use Symfony\Component\DependencyInjection\ContainerBuilder;
 /**
  * @author Nur Hidayatullah <kematjaya0@gmail.com>
  */
-class SerialNumberBundle 
+class SerialNumberBundle extends Bundle
 {
-    //put your code here
+    public function build(ContainerBuilder $container)
+    {
+        
+    }
 }
