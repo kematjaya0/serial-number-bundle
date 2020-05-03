@@ -22,9 +22,6 @@
         </service>
         <service id="kmj.serial_number_console" alias="Kematjaya\SerialNumberBundle\Console\SerialNumberConsole" public="true"/>
         
-        <service id="Symfony\Bundle\FrameworkBundle\Routing\Router" class="Symfony\Bundle\FrameworkBundle\Routing\Router"/>
-        <service id="router.default" alias="Symfony\Bundle\FrameworkBundle\Routing\Router" public="true"/>
-    
         <service id="Kematjaya\SerialNumberBundle\EventListener\SerialNumberEventListener" class="Kematjaya\SerialNumberBundle\EventListener\SerialNumberEventListener">
             <argument type="service" id="kmj.serial_number_builder" />
             <argument type="service" id="router.default" />
