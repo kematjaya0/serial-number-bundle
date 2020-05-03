@@ -32,33 +32,12 @@
         </service>
         <service id="kmj.serial_number_event_listener" alias="Kematjaya\SerialNumberBundle\EventListener\SerialNumberEventListener" public="true"/>
         
-        
-        <!--<service id="Kematjaya\User\Security\KmjLoginAuthenticator" class="Kematjaya\User\Security\KmjLoginAuthenticator">
-            <argument type="service" id="service_container" />
-            <argument type="service" id="kematjaya.user_repo" />
-            <argument type="service" id="router.default" />
-            <argument type="service" id="security.csrf.token_manager" />
-            <argument type="service" id="security.user_password_encoder.generic" />
-        </service>
-        <service id="Kematjaya\User\Controller\KmjSecurityController" class="Kematjaya\User\Controller\KmjSecurityController" public="true">
-            <argument type="service" id="security.authentication_utils" />
-            <argument type="service" id="kematjaya.user_repo" />
+        <service id="Kematjaya\SerialNumberBundle\Controller\SerialNumberController" class="Kematjaya\SerialNumberBundle\Controller\SerialNumberController" public="true">
+            <argument type="service" id="request_stack" />
+            <argument type="service" id="kmj.serial_number_builder" />
             <call method="setContainer">
                 <argument type="service" id="service_container" />
             </call>
         </service>
-        <service id="Kematjaya\User\Form\ChangePasswordType" class="Kematjaya\User\Form\ChangePasswordType">
-            <argument type="service" id="security.encoder_factory.generic" />
-            <argument type="service" id="security.user_password_encoder.generic" />
-            <tag name="form.type"/>
-        </service>
-        <service id="Kematjaya\Currency\DataTransformer\PriceDataTransformer" class="Kematjaya\Currency\DataTransformer\PriceDataTransformer">
-            <argument type="service" id="Kematjaya\Currency\Lib\CurrencyFormat" />
-        </service>
-        
-        <service id="Kematjaya\Currency\Twig\PriceExtension" class="Kematjaya\Currency\Twig\PriceExtension">
-            <argument type="service" id="Kematjaya\Currency\Lib\CurrencyFormat" />
-            <tag name="twig.extension"/>
-        </service>-->
     </services>
 </container>

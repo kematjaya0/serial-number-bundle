@@ -2,25 +2,39 @@
 
 namespace Kematjaya\SerialNumberBundle\Controller;
 
+use Symfony\Component\HttpFoundation\RequestStack;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
+use Kematjaya\SerialNumberBundle\Builder\SerialNumberBuilder;
 /**
  * @author Nur Hidayatullah <kematjaya0@gmail.com>
  */
 class SerialNumberController extends AbstractController
 {
+    protected $serialNumberBuilder;
     
-    public function invalidSerialNumber(Request $request, \Symfony\Contracts\Translation\TranslatorInterface $trans, SerialNumberProvider $serialNumberProvider, MParameterRepository $mParameterRepo)
+    protected $requestStack;
+    
+    public function __construct(RequestStack $requestStack, SerialNumberBuilder $serialNumberBuilder) 
     {
-        if($request->getMethod() == Request::METHOD_POST) {
-            
-            if(!$serialNumberProvider->validateSerialNumber($request->request->get('key'))) {
-                $this->addFlash('error', $trans->trans('invalid_serial_number'));
+        $this->requestStack = $requestStack;
+        $this->serialNumberBuilder = $serialNumberBuilder;
+    }
+    
+    public function invalidSerialNumber()
+    {
+        $request = $this->requestStack->getCurrentRequest();
+        if($request->getMethod() == Request::METHOD_POST) 
+        {
+            if(!$this->serialNumberBuilder->validateSerialNumber($request->request->get('key'))) 
+            {
+                $this->addFlash('error', 'invalid_serial_number');
                 return $this->redirectToRoute('app_invalid_serial_number');
             }
             
-            if ($this->isCsrfTokenValid('serial_number', $request->request->get('_csrf_token'))) {
-                    
-                $em = $this->getDoctrine()->getManager();
+            if ($this->isCsrfTokenValid('serial_number', $request->request->get('_csrf_token'))) 
+            {
+                dump($request->request->get('key'));exit;  
+                /*$em = $this->getDoctrine()->getManager();
                 $con = $em->getConnection();
                 $con->beginTransaction();
                 try{
@@ -45,10 +59,10 @@ class SerialNumberController extends AbstractController
                 } catch (\Exception $ex) {
                     $con->rollBack();
                     $this->addFlash("error", "error : ". $ex->getMessages());
-                }
+                }*/
             }
         }
-        return $this->render('security/invalid-serial-number.html.twig');
+        return $this->render('@SerialNumber/security/invalid-serial-number.html.twig');
     }
     
 }
