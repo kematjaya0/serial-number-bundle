@@ -2,8 +2,10 @@
 
 namespace Kematjaya\SerialNumberBundle\Tests;
 
+use Kematjaya\SerialNumber\Lib\SerialNumberInterface;
 use Kematjaya\SerialNumberBundle\Tests\AppKernel;
 use Symfony\Bundle\FrameworkBundle\Test\WebTestCase;
+
 /**
  * @author Nur Hidayatullah <kematjaya0@gmail.com>
  */
@@ -13,14 +15,17 @@ class BundleTest extends WebTestCase
     {
         $client = static::createClient();
         $container = $client->getContainer();
-        dump($container->has('Kematjaya\SerialNumber\Builder\SerialNumberBuilder'));exit;
-        // Test if the service exists
-        //$this->assertTrue($container->has('kematjaya.breadcrumbs_builder'));
-        //$this->assertTrue($container->has('kematjaya.breadcrumbs_extension'));
-        //$service = $container->get('kematjaya.breadcrumbs_builder');
-        //$ext = $container->get('kematjaya.breadcrumbs_extension');
-        //echo $ext->render();
-        //$this->assertInstanceOf(Builder::class, $service);
+        
+        $this->assertTrue($container->has('kmj.serial_number'));
+        $this->assertTrue($container->has('kmj.native_password_encoder.generic'));
+        $this->assertTrue($container->has('kmj.serial_number_builder'));
+        if($container->has('kmj.serial_number_builder'))
+        {
+            $sn = $container->get('kmj.serial_number_builder')->generateSerialNumber();
+            $this->assertInstanceOf(SerialNumberInterface::class, $sn);
+        }
+        
+        dump($container->has('kmj.serial_number_console'));exit;
     }
     
     public static function getKernelClass() 

@@ -4,11 +4,24 @@
     xsi:schemaLocation="http://symfony.com/schema/dic/services http://symfony.com/schema/dic/services/services-1.0.xsd">
     <services>
         <defaults public="false" />
-        <service id="Kematjaya\SerialNumber\Lib\SerialNumber" class="Kematjaya\SerialNumber\Lib\SerialNumber" public="true"/>
+        <service id="Kematjaya\SerialNumber\Lib\SerialNumber" class="Kematjaya\SerialNumber\Lib\SerialNumber"/>
+        <service id="Symfony\Component\Security\Core\Encoder\NativePasswordEncoder" class="Symfony\Component\Security\Core\Encoder\NativePasswordEncoder"/>
+        
+        <service id="kmj.serial_number" alias="Kematjaya\SerialNumber\Lib\SerialNumber" public="true"/>
+        <service id="kmj.native_password_encoder.generic" alias="Symfony\Component\Security\Core\Encoder\NativePasswordEncoder" public="true"/>
+        
         <service id="Kematjaya\SerialNumber\Builder\SerialNumberBuilder" class="Kematjaya\SerialNumber\Builder\SerialNumberBuilder">
-            <argument type="service" id="security.user_password_encoder.generic" />
-            <argument type="service" id="Kematjaya\SerialNumber\Lib\SerialNumber" />
+            <argument type="service" id="kmj.native_password_encoder.generic" />
+            <argument type="service" id="kmj.serial_number" />
         </service>
+        <service id="kmj.serial_number_builder" alias="Kematjaya\SerialNumber\Builder\SerialNumberBuilder" public="true"/>
+        
+        <service id="Kematjaya\SerialNumberBundle\Console\SerialNumberConsole" class="Kematjaya\SerialNumberBundle\Console\SerialNumberConsole">
+            <argument type="service" id="kmj.serial_number_builder" />
+            <tag name="console.command"/>
+        </service>
+        <service id="kmj.serial_number_console" alias="Kematjaya\SerialNumberBundle\Console\SerialNumberConsole" public="true"/>
+        
         <!--<service id="Kematjaya\User\Security\KmjLoginAuthenticator" class="Kematjaya\User\Security\KmjLoginAuthenticator">
             <argument type="service" id="service_container" />
             <argument type="service" id="kematjaya.user_repo" />
