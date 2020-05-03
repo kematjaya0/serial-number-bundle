@@ -34,12 +34,8 @@ class SerialNumberController extends AbstractController
         $request = $this->requestStack->getCurrentRequest();
         if($request->getMethod() == Request::METHOD_POST) 
         {
-            if(!$this->serialNumberBuilder->validateSerialNumber($request->request->get('key'))) 
-            {
-                $this->addFlash('error', 'invalid_serial_number');
-                return $this->redirectToRoute('kmj_invalid_serial_number');
-            }
-            if ($this->isCsrfTokenValid('serial_number', $request->request->get('_csrf_token'))) 
+            if ($this->serialNumberBuilder->validateSerialNumber($request->request->get('key')) 
+                and $this->isCsrfTokenValid('serial_number', $request->request->get('_csrf_token'))) 
             {
                 $em = $this->getDoctrine()->getManager();
                 $con = $em->getConnection();
@@ -53,7 +49,8 @@ class SerialNumberController extends AbstractController
                     $em->flush();
                     $con->commit();
                     return $this->redirectToRoute('homepage');
-                } catch (\Exception $ex) {
+                } catch (\Exception $ex) 
+                {
                     $con->rollBack();
                     $this->addFlash("error", "error : ". $ex->getMessages());
                 }
