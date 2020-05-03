@@ -17,7 +17,7 @@
             <argument type="service" id="kmj.setting" />
             <argument type="service" id="session" />
         </service>
-        <service id="kmj.serial_number_builder" alias="Kematjaya\SerialNumber\Builder\SerialNumberBuilder" public="true"/>
+        <service id="kmj.serial_number_builder" alias="Kematjaya\SerialNumberBundle\Builder\SerialNumberBuilder" public="true"/>
         
         <service id="Kematjaya\SerialNumberBundle\Console\SerialNumberConsole" class="Kematjaya\SerialNumberBundle\Console\SerialNumberConsole">
             <argument type="service" id="kmj.serial_number_builder" />
