@@ -22,6 +22,17 @@
         </service>
         <service id="kmj.serial_number_console" alias="Kematjaya\SerialNumberBundle\Console\SerialNumberConsole" public="true"/>
         
+        <service id="Symfony\Bundle\FrameworkBundle\Routing\Router" class="Symfony\Bundle\FrameworkBundle\Routing\Router"/>
+        <service id="router.default" alias="Symfony\Bundle\FrameworkBundle\Routing\Router" public="true"/>
+    
+        <service id="Kematjaya\SerialNumberBundle\EventListener\SerialNumberEventListener" class="Kematjaya\SerialNumberBundle\EventListener\SerialNumberEventListener">
+            <argument type="service" id="kmj.serial_number_builder" />
+            <argument type="service" id="router.default" />
+            <tag name="kernel.event_listener" event="kernel.request"/>
+        </service>
+        <service id="kmj.serial_number_event_listener" alias="Kematjaya\SerialNumberBundle\EventListener\SerialNumberEventListener" public="true"/>
+        
+        
         <!--<service id="Kematjaya\User\Security\KmjLoginAuthenticator" class="Kematjaya\User\Security\KmjLoginAuthenticator">
             <argument type="service" id="service_container" />
             <argument type="service" id="kematjaya.user_repo" />

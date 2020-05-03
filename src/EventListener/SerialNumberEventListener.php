@@ -1,6 +1,6 @@
 <?php
 
-namespace App\Utils\Provider\SerialsNumber\EventListener;
+namespace Kematjaya\SerialNumberBundle\EventListener;
 
 use Kematjaya\SerialNumber\Builder\SerialNumberBuilderInterface;
 use Symfony\Component\HttpKernel\Event\GetResponseEvent;
@@ -29,7 +29,7 @@ class SerialNumberEventListener
     {
         $path           = $event->getRequest()->attributes->get('_route');
         $redirectUrl    = 'app_invalid_serial_number';
-        $serialNumber   = $this->$serialNumberBuilder->getSerialNumber();
+        $serialNumber   = $this->serialNumberBuilder->getSerialNumber();
         
         $url = null;
         if($path !== $redirectUrl) {

@@ -25,7 +25,7 @@ class BundleTest extends WebTestCase
             $this->assertInstanceOf(SerialNumberInterface::class, $sn);
         }
         
-        dump($container->has('kmj.serial_number_console'));exit;
+        //dump($container->has('kmj.serial_number_console'));exit;
     }
     
     public static function getKernelClass() 
