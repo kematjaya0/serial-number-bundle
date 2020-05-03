@@ -8,11 +8,14 @@
         <service id="Symfony\Component\Security\Core\Encoder\NativePasswordEncoder" class="Symfony\Component\Security\Core\Encoder\NativePasswordEncoder"/>
         
         <service id="kmj.serial_number" alias="Kematjaya\SerialNumber\Lib\SerialNumber" public="true"/>
+        <service id="kmj.setting" alias="Kematjaya\SerialNumberBundle\Entity\Setting" public="true"/>
         <service id="kmj.native_password_encoder.generic" alias="Symfony\Component\Security\Core\Encoder\NativePasswordEncoder" public="true"/>
         
-        <service id="Kematjaya\SerialNumber\Builder\SerialNumberBuilder" class="Kematjaya\SerialNumber\Builder\SerialNumberBuilder">
+        <service id="Kematjaya\SerialNumberBundle\Builder\SerialNumberBuilder" class="Kematjaya\SerialNumberBundle\Builder\SerialNumberBuilder">
             <argument type="service" id="kmj.native_password_encoder.generic" />
             <argument type="service" id="kmj.serial_number" />
+            <argument type="service" id="kmj.setting" />
+            <argument type="service" id="session" />
         </service>
         <service id="kmj.serial_number_builder" alias="Kematjaya\SerialNumber\Builder\SerialNumberBuilder" public="true"/>
         
