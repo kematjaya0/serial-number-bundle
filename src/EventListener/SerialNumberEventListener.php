@@ -28,7 +28,7 @@ class SerialNumberEventListener
     public function onKernelRequest(GetResponseEvent $event)
     {
         $path           = $event->getRequest()->attributes->get('_route');
-        $redirectUrl    = 'app_invalid_serial_number';
+        $redirectUrl    = 'kmj_invalid_serial_number';
         $serialNumber   = $this->serialNumberBuilder->getSerialNumber();
         
         $url = null;

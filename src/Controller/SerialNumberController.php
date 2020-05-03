@@ -2,9 +2,12 @@
 
 namespace Kematjaya\SerialNumberBundle\Controller;
 
+use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\RequestStack;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Kematjaya\SerialNumberBundle\Builder\SerialNumberBuilder;
+use kematjaya\SerialNumberBundle\Repository\ParameterRepoInterface;
+use Kematjaya\SerialNumberBundle\Entity\ParameterInterface;
 /**
  * @author Nur Hidayatullah <kematjaya0@gmail.com>
  */
@@ -14,10 +17,16 @@ class SerialNumberController extends AbstractController
     
     protected $requestStack;
     
-    public function __construct(RequestStack $requestStack, SerialNumberBuilder $serialNumberBuilder) 
+    protected $parameterRepo;
+    
+    public function __construct(
+        RequestStack $requestStack, 
+        SerialNumberBuilder $serialNumberBuilder,
+        ParameterRepoInterface $parameterRepo) 
     {
         $this->requestStack = $requestStack;
         $this->serialNumberBuilder = $serialNumberBuilder;
+        $this->parameterRepo = $parameterRepo;
     }
     
     public function invalidSerialNumber()
@@ -28,38 +37,26 @@ class SerialNumberController extends AbstractController
             if(!$this->serialNumberBuilder->validateSerialNumber($request->request->get('key'))) 
             {
                 $this->addFlash('error', 'invalid_serial_number');
-                return $this->redirectToRoute('app_invalid_serial_number');
+                return $this->redirectToRoute('kmj_invalid_serial_number');
             }
-            
             if ($this->isCsrfTokenValid('serial_number', $request->request->get('_csrf_token'))) 
             {
-                dump($request->request->get('key'));exit;  
-                /*$em = $this->getDoctrine()->getManager();
+                $em = $this->getDoctrine()->getManager();
                 $con = $em->getConnection();
                 $con->beginTransaction();
                 try{
-                    $mParameter = $mParameterRepo->findOneBy(['code' => MParameter::CODE_SECURITY]);
-                    if(!$mParameter) {
-                        $mParameter = new MParameter();
-                        $mParameter->setCode($k);
-                        $names = MParameter::getCodeArray();
-                        if(isset($names[$k])) {
-                            $mParameter->setName($names[$k]);
-                        }
-                    }
-                    
+                    $mParameter = $this->parameterRepo->findOneByCode(ParameterInterface::CODE_SECURITY);
                     $values = $mParameter->getValue();
-                    $values[MParameter::COLUMN_SECURITY_NUMBER] = $request->request->get('key');
+                    $values[ParameterInterface::COLUMN_SECURITY_NUMBER] = $request->request->get('key');
                     $mParameter->setValue($values);
-                    
                     $em->persist($mParameter);
                     $em->flush();
                     $con->commit();
-                    return $this->redirectToRoute('kmj_user_login');
+                    return $this->redirectToRoute('homepage');
                 } catch (\Exception $ex) {
                     $con->rollBack();
                     $this->addFlash("error", "error : ". $ex->getMessages());
-                }*/
+                }
             }
         }
         return $this->render('@SerialNumber/security/invalid-serial-number.html.twig');

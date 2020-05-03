@@ -48,7 +48,7 @@ class SerialNumberBuilder extends Base
      */
     public function validateSerialNumber($number):?string
     {
-        if(!$this->session->has('kmjsn'))
+        if(!$this->session->has('kmjsn') || !$this->session->get('kmjsn'))
         {
             $number = parent::validateSerialNumber($number);
             if($number)

@@ -5,10 +5,12 @@
     <services>
         <defaults public="false" />
         <service id="Kematjaya\SerialNumber\Lib\SerialNumber" class="Kematjaya\SerialNumber\Lib\SerialNumber"/>
+        <service id="kematjaya\SerialNumberBundle\Repository\ParameterRepoInterface" class="kematjaya\SerialNumberBundle\Repository\ParameterRepoInterface"/>
         <service id="Symfony\Component\Security\Core\Encoder\NativePasswordEncoder" class="Symfony\Component\Security\Core\Encoder\NativePasswordEncoder"/>
         
         <service id="kmj.serial_number" alias="Kematjaya\SerialNumber\Lib\SerialNumber" public="true"/>
         <service id="kmj.setting" alias="Kematjaya\SerialNumberBundle\Entity\Setting" public="true"/>
+        <service id="kmj.parameter_repo" alias="kematjaya\SerialNumberBundle\Repository\ParameterRepoInterface" public="true"/>
         <service id="kmj.native_password_encoder.generic" alias="Symfony\Component\Security\Core\Encoder\NativePasswordEncoder" public="true"/>
         
         <service id="Kematjaya\SerialNumberBundle\Builder\SerialNumberBuilder" class="Kematjaya\SerialNumberBundle\Builder\SerialNumberBuilder">
@@ -35,6 +37,7 @@
         <service id="Kematjaya\SerialNumberBundle\Controller\SerialNumberController" class="Kematjaya\SerialNumberBundle\Controller\SerialNumberController" public="true">
             <argument type="service" id="request_stack" />
             <argument type="service" id="kmj.serial_number_builder" />
+            <argument type="service" id="kmj.parameter_repo" />
             <call method="setContainer">
                 <argument type="service" id="service_container" />
             </call>
