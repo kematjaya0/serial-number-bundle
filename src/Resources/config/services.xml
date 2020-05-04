@@ -42,5 +42,9 @@
                 <argument type="service" id="service_container" />
             </call>
         </service>
+        <service id="Kematjaya\SerialNumberBundle\DataFixtures\SerialNumberFixtures" class="Kematjaya\SerialNumberBundle\DataFixtures\SerialNumberFixtures">
+            <argument type="service" id="kmj.serial_number_builder" />
+            <argument type="service" id="kmj.parameter_repo" />
+        </service>
     </services>
 </container>
