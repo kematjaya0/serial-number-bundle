@@ -6,7 +6,7 @@ use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\RequestStack;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Kematjaya\SerialNumberBundle\Builder\SerialNumberBuilder;
-use kematjaya\SerialNumberBundle\Repository\ParameterRepoInterface;
+use Kematjaya\SerialNumberBundle\Repository\ParameterRepoInterface;
 use Kematjaya\SerialNumberBundle\Entity\ParameterInterface;
 /**
  * @author Nur Hidayatullah <kematjaya0@gmail.com>
