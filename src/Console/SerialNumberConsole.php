@@ -34,5 +34,7 @@ class SerialNumberConsole extends Command
     {
         $serialNumber = $this->serialNumberBuilder->generateSerialNumber();
         $output->writeln('serial number : ' . $serialNumber->getNumber());
+        
+        return self::SUCCESS;
     }
 }
