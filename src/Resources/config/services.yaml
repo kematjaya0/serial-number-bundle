@@ -4,7 +4,8 @@ services:
         autoconfigure: true
         public: false
         
-    Kematjaya\SerialNumber\Lib\SerialNumber: ~
+    Kematjaya\SerialNumber\Lib\SerialNumber: 
+        class: Kematjaya\SerialNumber\Lib\SerialNumber
     
     Kematjaya\SerialNumberBundle\Repository\ParameterRepoInterface:
         class: Kematjaya\SerialNumberBundle\Repository\MParameterRepository
