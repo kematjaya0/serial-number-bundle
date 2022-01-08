@@ -10,7 +10,8 @@ services:
     Kematjaya\SerialNumberBundle\Repository\ParameterRepoInterface:
         class: Kematjaya\SerialNumberBundle\Repository\MParameterRepository
     
-    Kematjaya\SerialNumberBundle\Builder\SerialNumberBuilder: ~
+    Kematjaya\SerialNumber\Builder\SerialNumberBuilderInterface:
+        class: Kematjaya\SerialNumberBundle\Builder\SerialNumberBuilder
     
     Symfony\Component\PasswordHasher\PasswordHasherInterface: 
         class: Symfony\Component\PasswordHasher\Hasher\NativePasswordHasher
