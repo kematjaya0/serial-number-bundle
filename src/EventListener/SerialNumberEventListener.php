@@ -14,9 +14,16 @@ use Symfony\Component\Routing\Generator\UrlGeneratorInterface;
  */
 class SerialNumberEventListener 
 {
-    
+    /**
+     * 
+     * @var SerialNumberBuilderInterface
+     */
     private $serialNumberBuilder;
     
+    /**
+     * 
+     * @var UrlGeneratorInterface
+     */
     private $urlGenerator;
     
     function __construct(SerialNumberBuilderInterface $serialNumberBuilder, UrlGeneratorInterface $urlGenerator) 
