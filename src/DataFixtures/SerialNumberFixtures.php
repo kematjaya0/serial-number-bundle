@@ -2,6 +2,7 @@
 
 namespace Kematjaya\SerialNumberBundle\DataFixtures;
 
+use Kematjaya\SerialNumber\Builder\SerialNumberBuilderInterface;
 use Kematjaya\SerialNumberBundle\Builder\SerialNumberBuilder;
 use Kematjaya\SerialNumberBundle\Repository\ParameterRepoInterface;
 use Kematjaya\SerialNumberBundle\Entity\ParameterInterface;
@@ -13,11 +14,20 @@ use Doctrine\Persistence\ObjectManager;
  */
 class SerialNumberFixtures extends Fixture implements FixtureGroupInterface
 {
+    
+    /**
+     * 
+     * @var SerialNumberBuilderInterface
+     */
     private $serialNumberBuilder;
     
+    /**
+     * 
+     * @var ParameterRepoInterface
+     */
     private $parameterRepo;
     
-    public function __construct(SerialNumberBuilder $serialNumberBuilder, ParameterRepoInterface $parameterRepo) 
+    public function __construct(SerialNumberBuilderInterface $serialNumberBuilder, ParameterRepoInterface $parameterRepo) 
     {
         $this->serialNumberBuilder = $serialNumberBuilder;
         $this->parameterRepo = $parameterRepo;
