@@ -1,0 +1,39 @@
+services:
+    _defaults:
+        autowire: true
+        autoconfigure: true
+        public: false
+        
+    Kematjaya\SerialNumber\Lib\SerialNumber: ~
+    
+    Kematjaya\SerialNumberBundle\Repository\ParameterRepoInterface:
+        class: Kematjaya\SerialNumberBundle\Repository\MParameterRepository
+    
+    Kematjaya\SerialNumberBundle\Builder\SerialNumberBuilder: ~
+    
+    Symfony\Component\PasswordHasher\PasswordHasherInterface: 
+        class: Symfony\Component\PasswordHasher\Hasher\NativePasswordHasher
+    
+    Kematjaya\SerialNumberBundle\Entity\SettingInterface:
+        class: Kematjaya\SerialNumberBundle\Entity\Setting
+      
+    Kematjaya\SerialNumberBundle\Console\SerialNumberConsole:
+        class: Kematjaya\SerialNumberBundle\Console\SerialNumberConsole
+        tags:
+            -  { name: console.command }
+            
+    Kematjaya\SerialNumberBundle\DataFixtures\SerialNumberFixtures:
+        class: Kematjaya\SerialNumberBundle\DataFixtures\SerialNumberFixtures
+        tags: 
+            - doctrine.fixture.orm
+            
+    Kematjaya\SerialNumberBundle\EventListener\SerialNumberEventListener:
+        class: Kematjaya\SerialNumberBundle\EventListener\SerialNumberEventListener
+        tags:
+            - { name: kernel.event_listener, event: kernel.request }
+        
+    Kematjaya\SerialNumberBundle\Controller\SerialNumberController:
+        class: Kematjaya\SerialNumberBundle\Controller\SerialNumberController
+        calls: 
+            - setContainer: ['@service_container']
+        

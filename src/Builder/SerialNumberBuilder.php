@@ -1,7 +1,7 @@
 <?php
 namespace Kematjaya\SerialNumberBundle\Builder;
 
-use Symfony\Component\Security\Core\Encoder\PasswordEncoderInterface;
+use Symfony\Component\PasswordHasher\PasswordHasherInterface;
 use Symfony\Component\HttpFoundation\Session\SessionInterface;
 use Kematjaya\SerialNumber\Builder\SerialNumberBuilder as Base;
 use Kematjaya\SerialNumberBundle\Entity\SettingInterface;
@@ -11,15 +11,19 @@ use Kematjaya\SerialNumber\Lib\SerialNumberInterface;
  */
 class SerialNumberBuilder extends Base
 {
+    /**
+     * 
+     * @var SettingInterface
+     */
     private $setting;
     
+    /**
+     * 
+     * @var SessionInterface
+     */
     private $session;
     
-    function __construct(
-        PasswordEncoderInterface $encoder, 
-        SerialNumberInterface $serialNumber, 
-        SettingInterface $setting, 
-        SessionInterface $session) 
+    function __construct(PasswordHasherInterface $encoder, SerialNumberInterface $serialNumber, SettingInterface $setting, SessionInterface $session) 
     {
         $this->encoder = $encoder;
         $this->setting = $setting;
@@ -34,7 +38,7 @@ class SerialNumberBuilder extends Base
     public function getSerialNumber(): ?string
     {
         $serialNumber = $this->setting->getSerialNumber();
-        if(!$serialNumber) {
+        if (!$serialNumber) {
             return null;
         }
         
@@ -48,11 +52,9 @@ class SerialNumberBuilder extends Base
      */
     public function validateSerialNumber($number):?string
     {
-        if(!$this->session->has('kmjsn') || !$this->session->get('kmjsn'))
-        {
+        if (!$this->session->has('kmjsn') || !$this->session->get('kmjsn')) {
             $number = parent::validateSerialNumber($number);
-            if($number)
-            {
+            if ($number) {
                 $this->session->set('kmjsn', $number);
             }
         }
