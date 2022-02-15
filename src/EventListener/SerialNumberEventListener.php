@@ -34,21 +34,21 @@ class SerialNumberEventListener
     
     public function onKernelRequest(RequestEvent $event)
     {
-        $path           = $event->getRequest()->attributes->get('_route');
-        $redirectUrl    = 'kmj_invalid_serial_number';
-        $serialNumber   = $this->serialNumberBuilder->getSerialNumber();
+        $path           = $event->getRequest()->getPathInfo();
+        $redirectUrl    = $this->urlGenerator->generate('kmj_invalid_serial_number');
         
-        $url = null;
-        if($path !== $redirectUrl) {
-            if(!$serialNumber) {
-                $url = $this->urlGenerator->generate($redirectUrl);
-            }
+        if ($path === $redirectUrl) {
             
-            if($url) {
-                $response = new RedirectResponse($url);
-                $event->setResponse($response);
-            }
+            return;
         }
         
+        $serialNumber   = $this->serialNumberBuilder->getSerialNumber();
+        if (null !== $serialNumber) {
+            
+            return;
+        }
+        
+        $response = new RedirectResponse($redirectUrl);
+        $event->setResponse($response);
     }
 }

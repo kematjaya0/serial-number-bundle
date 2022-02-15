@@ -32,7 +32,7 @@ services:
     Kematjaya\SerialNumberBundle\EventListener\SerialNumberEventListener:
         class: Kematjaya\SerialNumberBundle\EventListener\SerialNumberEventListener
         tags:
-            - { name: kernel.event_listener, event: kernel.request }
+            - { name: kernel.event_listener, event: kernel.request, priority: 10000 }
         
     Kematjaya\SerialNumberBundle\Controller\SerialNumberController:
         class: Kematjaya\SerialNumberBundle\Controller\SerialNumberController

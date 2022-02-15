@@ -42,7 +42,7 @@ class SerialNumberController extends AbstractController
     public function invalidSerialNumber()
     {
         $request = $this->requestStack->getCurrentRequest();
-        if ($request->getMethod() !== Request::METHOD_POST) {
+        if ($request->getMethod() != Request::METHOD_POST) {
             
             return $this->render('@SerialNumber/security/invalid-serial-number.html.twig');
         }
@@ -76,6 +76,5 @@ class SerialNumberController extends AbstractController
             
         return $this->render('@SerialNumber/security/invalid-serial-number.html.twig');
     }
-    
     
 }

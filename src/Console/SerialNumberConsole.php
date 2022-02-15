@@ -16,6 +16,10 @@ class SerialNumberConsole extends Command
     
     protected static $defaultName = 'kmj:serial-number:generate';
     
+    /**
+     * 
+     * @var SerialNumberBuilderInterface
+     */
     private $serialNumberBuilder;
     
     function __construct(SerialNumberBuilderInterface $serialNumberBuilder, mixed $name = null) 

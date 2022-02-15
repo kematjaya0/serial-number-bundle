@@ -6,7 +6,7 @@
         <title>{{ 'access_denied'|trans }}</title>
     </head>
     <body class="five-zero-zero">
-        <form method="post">
+        <form method="post" action="{{ path("kmj_invalid_serial_number") }}">
             <input type="hidden" name="_csrf_token" value="{{ csrf_token('serial_number') }}" />
             <div class="error-code">403</div>
             <div class="error-message">{{ 'invalid_serial_number'|trans }}</div><br/><br/>
