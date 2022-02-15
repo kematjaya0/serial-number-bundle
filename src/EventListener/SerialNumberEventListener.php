@@ -6,6 +6,7 @@ use Kematjaya\SerialNumber\Builder\SerialNumberBuilderInterface;
 use Symfony\Component\HttpKernel\Event\RequestEvent;
 use Symfony\Component\HttpFoundation\RedirectResponse;
 use Symfony\Component\Routing\Generator\UrlGeneratorInterface;
+use Symfony\Component\DependencyInjection\ParameterBag\ParameterBagInterface;
 
 /**
  * Description of SerialNumberEventListener
@@ -26,17 +27,31 @@ class SerialNumberEventListener
      */
     private $urlGenerator;
     
-    function __construct(SerialNumberBuilderInterface $serialNumberBuilder, UrlGeneratorInterface $urlGenerator) 
+    /**
+     * 
+     * @var array
+     */
+    private $configs;
+    
+    function __construct(ParameterBagInterface $parameterBag, SerialNumberBuilderInterface $serialNumberBuilder, UrlGeneratorInterface $urlGenerator) 
     {
         $this->serialNumberBuilder = $serialNumberBuilder;
         $this->urlGenerator = $urlGenerator;
+        $this->configs = $parameterBag->get('kmj_serial_number');
     }
     
     public function onKernelRequest(RequestEvent $event)
     {
+        if (!$event->isMainRequest()) {
+            return;
+        }
+        
+        if (true !== $this->configs["is_activated"]) {
+            return;
+        }
+        
         $path           = $event->getRequest()->getPathInfo();
         $redirectUrl    = $this->urlGenerator->generate('kmj_invalid_serial_number');
-        
         if ($path === $redirectUrl) {
             
             return;
